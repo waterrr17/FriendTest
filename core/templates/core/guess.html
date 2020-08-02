@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guess 넌 나를 얼마나 잘 아니?</title>
+</head>
+<body>
+    <h2>Guess About {{ host.name }}</h2>
+    <h3>Q{{ host.current_guess }}: {{ choice1 }} vs {{ choice2 }}</h3>
+    {% if not host.current_guess == 10 %}
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                <input type="submit" name="choice" value="0">{{ choice1 }}<br>
+                <input type="submit" name="choice" value="1">{{ choice2 }}<br>
+                <input type="hidden" name="friend_code" value="{{ host.player_number }}">
+        </form>
+    {% endif %}
+
+    {% if host.current_guess == 10 %}
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="submit" name="choice" value="0">{{ choice1 }}<br>
+            <input type="submit" name="choice" value="1">{{ choice2 }}<br>
+            <input type="hidden" name="player" value="player">
+            <input type="hidden" name="friend_code" value="{{ host.player_number }}">
+        </form>
+    {% endif %}
+
+</body>
+</html>
