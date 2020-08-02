@@ -6,7 +6,8 @@ def test_start(request):
     ranking=Player.objects.order_by('-score')
     return render(request, 'core/test_start.html',{'ranking':ranking})
 
-def test_end(request, currentPlayer):
+def test_end(request, id):
+    currentPlayer = Player.objects.get(player_number=id)
     ranking=Player.objects.order_by('-score')
     # return render(request, 'core/test_end.html',{'ranking': ranking,})
     return render(request, 'core/test_end.html',{'ranking': ranking, 'currentPlayer': currentPlayer})
@@ -79,7 +80,7 @@ def guess(request):
 
     if host.current_guess == 10:
         host.current_guess=0
-        return redirect('test_end', currentPlayer=player)
+        return redirect('test_end', id=player.player_number)
 
     choices = choices_set[host.current_guess]
     host.current_guess+=1
