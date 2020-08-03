@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ask Question{{ stage }}</title>
+</head>
+<body>
+    <h2>Q{{ stage }} : 다음 중 {{ new_host.name }}님이 선호하는 것은?</h2>
+    <hr>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit" name="choice" value="0">
+            {{ choice1 }}
+        </button><br>
+        <button type="submit" name="choice" value="1">
+            {{ choice2 }}
+        </button>
+        <input type="hidden" name="stage" value="{{ stage }}">
+        <input type="hidden" name="player_number" value="{{ new_host.player_number }}">
+    </form>
+
+</body>
+</html>
