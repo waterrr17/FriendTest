@@ -4,12 +4,13 @@ from .forms import PlayerForm
 
 # Create your views here.
 def test_start(request):
-    ranking=Player.objects.order_by('-score')
-    return render(request, 'core/test_start.html',{'ranking':ranking})
+    ranking=Player.objects.filter(is_host=False).order_by('-score')
+    hosts = Player.objects.filter(is_host=True)
+    return render(request, 'core/test_start.html',{'ranking': ranking, 'hosts': hosts})
 
 def test_end(request, id):
     currentPlayer = Player.objects.get(player_number=id)
-    ranking=Player.objects.order_by('-score')
+    ranking = Player.objects.filter(is_host=False).order_by('-score')
     # return render(request, 'core/test_end.html',{'ranking': ranking,})
     return render(request, 'core/test_end.html',{'ranking': ranking, 'currentPlayer': currentPlayer})
 

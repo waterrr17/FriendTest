@@ -69,6 +69,7 @@
                 <input type="submit" value="입력">
             </form>
         </div>
+        <br>
 
         <div class="rank">
             <div class="rank_title">
@@ -86,6 +87,22 @@
                     <br>
                 {% endfor %}
             {% endblock %}
+        </div>
+
+        <div class="rank">
+            <div class="rank_title">
+                HOSTS
+            </div>
+            {% for host in hosts%}
+                <div class="name">
+                    {{ host.name }}
+                </div>
+
+                <div class="score">
+                    {{ host.player_number }}
+                </div>
+                <br>
+            {% endfor %}
         </div>
 
         <div class="making">
