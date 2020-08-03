@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Player
+from .forms import PlayerForm
 
 # Create your views here.
 def test_start(request):
@@ -80,6 +81,7 @@ def guess(request):
 
     if host.current_guess == 10:
         host.current_guess=0
+        host.save()
         return redirect('test_end', id=player.player_number)
 
     choices = choices_set[host.current_guess]
@@ -92,3 +94,55 @@ def guess(request):
         'choice1': choices[0],
         'choice2': choices[1],
     })
+
+
+def new_test(request):
+    #이름을 입력했을 때
+    if request.method == 'POST' and int(request.POST['stage'])==0:
+        form = PlayerForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_host = form.save(commit=False)
+            new_host.is_host = True
+            new_host.player_number = Player.objects.count()+1
+            new_host.save()
+
+    #문제들에 대한 답변 저장
+    elif request.method == 'POST' and int(request.POST['stage'])<10:
+        stage = int(request.POST['stage'])
+        new_host = request.POST['player']
+        choice = bool(int(request.POST['choice']))
+        if stage == 0:
+            new_host.question1 = choice
+        elif stage == 1:
+            new_host.question2 = choice
+        elif stage == 2:
+            new_host.question3 = choice
+        elif stage == 3:
+            new_host.question4 = choice
+        elif stage == 4:
+            new_host.question5 = choice
+        elif stage == 5:
+            new_host.question6 = choice
+        elif stage == 6:
+            new_host.question7 = choice
+        elif stage == 7:
+            new_host.question8 = choice
+        elif stage == 8:
+            new_host.question9 = choice
+        elif stage == 9:
+            new_host.question10 = choice
+            new_host.save()
+            return redirect('test_start')
+        new_host.save()
+
+        stage += 1
+        return render(request, 'core/ask_question.html', {
+            'stage':stage+1,
+            'choices':choices_set[stage],
+            'player':new_host,
+        })
+
+    #퀴즈 생성하기를 처음 선택했을 때 -> GET 요청
+    else:
+        form = PlayerForm()
+        return render(request, 'core/new_test.html', {'form':form})
