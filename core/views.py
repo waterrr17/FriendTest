@@ -105,41 +105,47 @@ def new_test(request):
             new_host.is_host = True
             new_host.player_number = Player.objects.count()+1
             new_host.save()
-
+            return render(request, 'core/ask_question.html', {
+                'stage': 1,
+                'choice1': choices_set[0][0],
+                'choice2': choices_set[0][1],
+                'new_host': new_host,
+            })
     #문제들에 대한 답변 저장
-    elif request.method == 'POST' and int(request.POST['stage'])<10:
+    elif request.method == 'POST' and int(request.POST['stage'])>0:
         stage = int(request.POST['stage'])
-        new_host = request.POST['player']
+        new_host = Player.objects.get(player_number=request.POST['player_number'])
         choice = bool(int(request.POST['choice']))
-        if stage == 0:
+        if stage == 1:
             new_host.question1 = choice
-        elif stage == 1:
-            new_host.question2 = choice
         elif stage == 2:
-            new_host.question3 = choice
+            new_host.question2 = choice
         elif stage == 3:
-            new_host.question4 = choice
+            new_host.question3 = choice
         elif stage == 4:
-            new_host.question5 = choice
+            new_host.question4 = choice
         elif stage == 5:
-            new_host.question6 = choice
+            new_host.question5 = choice
         elif stage == 6:
-            new_host.question7 = choice
+            new_host.question6 = choice
         elif stage == 7:
-            new_host.question8 = choice
+            new_host.question7 = choice
         elif stage == 8:
-            new_host.question9 = choice
+            new_host.question8 = choice
         elif stage == 9:
+            new_host.question9 = choice
+        elif stage == 10:
             new_host.question10 = choice
             new_host.save()
             return redirect('test_start')
-        new_host.save()
 
+        new_host.save()
         stage += 1
         return render(request, 'core/ask_question.html', {
-            'stage':stage+1,
-            'choices':choices_set[stage],
-            'player':new_host,
+            'stage':stage,
+            'choice1':choices_set[stage-1][0],
+            'choice2': choices_set[stage - 1][1],
+            'new_host':new_host,
         })
 
     #퀴즈 생성하기를 처음 선택했을 때 -> GET 요청
