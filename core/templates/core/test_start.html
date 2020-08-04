@@ -1,15 +1,31 @@
 <html>
     <head>
         <style>
-            body{font-family: '배달의민족 주아', '나눔바른고딕 Light'}
-            
-            .top{
-                background-color: blueviolet;
-                color:white;
-                height:10%;
-                font-size:4.5em;
-                text-align: center;
+            *{margin:0 auto;}
+
+            nav{
+                background-color:purple;
             }
+
+            .friendship {
+                font-size: 25px;
+                font-weight: bold;
+                
+            }
+
+            .friendship img{
+                float: left;
+            }
+
+            .friendship div{
+                height: 80px;
+                line-height: 80px;
+            }
+
+            a:link {text-decoration: none; color:white;}
+            a:visited {text-decoration: none; color: white;}
+            a:active {text-decoration: none; color:white;}
+            a:hover {text-decoration: none; color: white;}
 
             .input{
                 text-align: center;
@@ -17,7 +33,10 @@
                 margin-left:30%;
                 margin-right: 30%;
                 padding-top:10px;
-                border: dashed 1px black;
+                border: solid 1px black;
+                font-weight: bold;
+                color: grey;
+                border-radius: 5px;
             }
 
             .rank{
@@ -25,40 +44,72 @@
                 border: 1px black solid;
                 margin: 10px 30%;
                 box-sizing: border-box;
+                border-radius: 5px;
             }
 
             .rank_title{
-                border: 1px gray solid;
+                border:1px solid #000000;
                 padding: 10px;
-                background-color: lightblue;
+                background-color: purple;
                 box-sizing: border-box;
+                border-radius: 5px;
+                color:white;
+                font-weight: bold;
+
+               
             }
 
             .name{
                 text-align: center;
                 float:left;
-                background-color: cornflowerblue;
+                background-color: lightpink;
                 width: 50%;
-                border: 1px black dashed;
+                border: 1px black solid;
                 box-sizing: border-box;
             }
 
             .score{
                 text-align: center;
                 float:left;
-                background-color: aquamarine;
                 width:50%;
-                border: 1px black dashed;
+                border: 1px black solid;
                 box-sizing: border-box;
             }
 
+            
+
+            .contact{
+                text-align: center;
+                background-color: purple;
+                height:50px;
+                font-weight: bold;
+                padding-top: 20px;
+            }
+
+            input[type=text] {
+                color:pink;
+                font-size: 15px;
+            }
+
+            input[type=submit]{
+                background-color: purple;
+                color:white;
+                border-radius: 5px;
+                border:1px solid purple;
+            }
         </style>
     </head>
 
     <body>
-        <div class="top">
-            2020 우정 테스트
-        </div>
+        <nav>
+            <a class="friendship" href="#">
+                <img src="https://yourdare.com/images/dare/icon.png?v=4" alt="friend image"/>
+                <div>
+                    2020 우정 테스트
+                </div>
+            </a>
+        </nav>
+
 
         <div class="input">
             친구의 코드를 입력하세요!
